@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Brielle & Kairo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d63384;
+            --soft-pink: #fce4ec;
+            --dark-pink: #880e4f;
+            --text-color: #4a4a4a;
+            --theme-wine: #832a4e;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #fcf6f8;
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-cursive {
+            font-family: 'Sacramento', cursive;
+        }
+
+        .text-justify {
+            text-align: justify;
+        }
+
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(253, 226, 236, 0.85)), url('cover.jpg') center/cover no-repeat;
+            z-index: 9999;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        #cover.hidden {
+            transform: translateY(-100%);
+        }
+
+        .main-container {
+            min-height: 100vh;
+        }
+
+        .right-content {
+            background: #fff8fa;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .img-arch-frame {
+            width: 280px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 180px 180px 20px 20px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.15);
+            background-color: #fce4ec;
+        }
+
+        .img-arch-profile {
+            width: 240px;
+            height: 330px;
+            object-fit: cover;
+            border-radius: 150px 150px 20px 20px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(131, 42, 78, 0.12);
+            background-color: #fce4ec;
+        }
+
+        .btn-ig {
+            width: 36px;
+            height: 36px;
+            background-color: #e88ca8;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 3px 8px rgba(232, 140, 168, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-ig:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .countdown-box-soft {
+            background: #e88ca8;
+            color: white;
+            border-radius: 18px;
+            padding: 12px 8px;
+            width: 72px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(232, 140, 168, 0.3);
+        }
+
+        .countdown-box-soft span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .countdown-box-soft small {
+            font-size: 0.75rem;
+        }
+
+        .title-names {
+            color: var(--theme-wine);
+            font-size: 3.5rem;
+            font-weight: normal;
+        }
+
+        .name-single {
+            color: var(--theme-wine);
+            font-size: 3.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .desc-parents {
+            color: var(--theme-wine);
+            font-size: 0.95rem;
+        }
+
+        .date-sub {
+            letter-spacing: 3px;
+            color: var(--theme-wine);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: spin 4s linear infinite;
+        }
+
+        .music-btn.paused {
+            animation-play-state: paused;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .section-clean {
+            margin-bottom: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="assets/audio/wedding-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" class="music-btn paused" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <div id="cover" class="d-flex align-items-center justify-content-center text-center">
+        <div class="p-4">
+            <h5 class="text-uppercase tracking-widest text-secondary mb-3">Pernikahan Kami</h5>
+            <h1 class="font-serif display-1 text-danger mb-4">Brielle & Kairo</h1>
+            <p class="mb-1 text-muted">Kepada Yth:</p>
+            <h4 id="guest-name" class="fw-bold mb-4">Bianca Kusuma</h4>
+            <button class="btn btn-danger btn-lg rounded-pill px-4 shadow" onclick="openInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid p-0 main-container">
+        <div class="row g-0 justify-content-center">
+            
+            <div class="col-lg-6 col-12 right-content mx-auto">
+                <div class="max-w-md mx-auto text-center">
+                    
+                    <div class="section-clean text-center py-3">
+                        <div class="d-flex justify-content-center mb-4">
+                            <img src="preweding.jpg" class="img-arch-frame" alt="Bella & Deni">
+                        </div>
+
+                        <h1 class="font-serif title-names mb-1">Brielle & Kairo</h1>
+                        <p class="date-sub text-uppercase mb-4">Sabtu ,  11  Agustus  2027</p>
+
+                        <div class="d-flex justify-content-center gap-2 my-4">
+                            <div class="countdown-box-soft"><span id="days">00</span><small>Hari</small></div>
+                            <div class="countdown-box-soft"><span id="hours">00</span><small>Jam</small></div>
+                            <div class="countdown-box-soft"><span id="minutes">00</span><small>Menit</small></div>
+                            <div class="countdown-box-soft"><span id="seconds">00</span><small>Detik</small></div>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-center my-5 py-4">
+                        <h5 class="fw-bold mb-3" style="color: #832a4e;">Q.S. Ar-Rum, Ayat 21</h5>
+                        <p class="text-center px-2" style="color: #832a4e; line-height: 1.8; font-size: 0.95rem;">
+                            “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir.”
+                        </p>
+                    </div>
+
+                    <div class="section-clean text-center">
+                        <p class="fw-semibold text-dark mb-2">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+                        <p class="small text-muted text-justify mb-5">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan kami:</p>
+
+                        <div class="my-4">
+                            <div class="d-flex justify-content-center mb-3">
+                                <img src="fotocewek.jpg" class="img-arch-profile" alt="Brielle Seraphina">
+                            </div>
+                            <h3 class="font-serif name-single">Brielle Seraphina</h3>
+                            <p class="desc-parents mb-3">Putri Kedua dari Bapak Leonard dan Ibu Enjelina</p>
+                            <a href="https://instagram.com" target="_blank" class="btn-ig mb-4">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+
+                        <h2 class="font-serif display-3 my-4" style="color: #832a4e;">&</h2>
+
+                        <div class="my-4">
+                            <div class="d-flex justify-content-center mb-3">
+                                <img src="fotocowok.jpg" class="img-arch-profile" alt="Kairo Denzel">
+                            </div>
+                            <h3 class="font-serif name-single">Kairo Denzel</h3>
+                            <p class="desc-parents mb-3">Putra Kedua dari Bapak Kenan dan Ibu Gizel</p>
+                            <a href="https://instagram.com" target="_blank" class="btn-ig mb-4">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-center border-top pt-4">
+                        <!-- Akad -->
+                        <div class="mb-4">
+                            <h3 class="font-serif text-danger display-5">Akad Nikah</h3>
+                            <p class="mb-1 fw-bold"><i class="far fa-calendar-alt me-2 text-danger"></i>Jumat, 10 Agustus 2027</p>
+                            <p class="mb-1"><i class="far fa-clock me-2 text-danger"></i>Pukul: 09:00 WIB</p>
+                            <p class="small text-muted mb-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Kediaman Mempelai Wanita<br>Jl. Pangkalan 2 No.230, Bantargebang, Kota Bekasi</p>
+                            
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Pangkalan+2+No.230,+Bantargebang,+Kota+Bekasi" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-4 py-2">
+                                <i class="fas fa-map-marked-alt me-2"></i> Google Maps
+                            </a>
+                        </div>
+
+                        <hr style="border-color: #f8bbd0;">
+         
+                        <div>
+                            <h3 class="font-serif text-danger display-5">Resepsi</h3>
+                            <p class="mb-1 fw-bold"><i class="far fa-calendar-alt me-2 text-danger"></i>Sabtu, 11 Agustus 2027</p>
+                            <p class="mb-1"><i class="far fa-clock me-2 text-danger"></i>Pukul: 12:00 WIB - Selesai</p>
+                            <p class="small text-muted mb-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Kediaman Mempelai Wanita<br>Jl. Pangkalan 2 No.230, Bantargebang, Kota Bekasi</p>
+                            
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Pangkalan+2+No.230,+Bantargebang,+Kota+Bekasi" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-4 py-2">
+                                <i class="fas fa-map-marked-alt me-2"></i> Google Maps
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-center border-top pt-4">
+                        <h3 class="font-serif text-danger display-5 mb-3">Gallery</h3>
+                        <div class="row g-2">
+                            <div class="col-6 mb-2"><img src="foto1.jpg" class="img-fluid rounded shadow-sm w-100" alt="foto1"></div>
+                            <div class="col-6 mb-2"><img src="foto2.jpeg" class="img-fluid rounded shadow-sm w-100" alt="foto2"></div>
+                            <div class="col-6 mb-2"><img src="foto3.jpg" class="img-fluid rounded shadow-sm w-100" alt="foto3"></div>
+                            <div class="col-6 mb-2"><img src="foto4.jpg" class="img-fluid rounded shadow-sm w-100" alt="foto4"></div>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-start border-top pt-4">
+                        <h3 class="font-serif text-danger display-5 text-center mb-3">Love Story</h3>
+                        <div class="mb-3">
+                            <h6 class="fw-bold text-danger"><i class="fas fa-heart me-1"></i> Awal Pertemuan</h6>
+                            <p class="small text-muted text-justify">Kami bertemu dan berkenalan pada tahun 2025 di kampus dan tepatnya digedung Teknik...</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="fw-bold text-danger"><i class="fas fa-ring me-1"></i> Lamaran</h6>
+                            <p class="small text-muted text-justify">Setelah perjalanan panjang, pada 06 Agustus 2025 kami memutuskan mengikat hubungan...</p>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-center border-top pt-4">
+                        <h3 class="font-serif text-danger display-5 mb-2">Wedding Gift</h3>
+                        <p class="small text-muted mb-4 text-justify">Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan hadiah, Anda dapat mengirimkannya secara cashless:</p>
+
+                        <div class="border rounded-4 p-3 mb-3 bg-white shadow-sm">
+                            <h5 class="fw-bold text-primary mb-1">BCA</h5>
+                            <p class="mb-0 fw-semibold">Azzarah Andina</p>
+                            <p class="mb-2 text-muted" id="rek-bca">5680628665</p>
+                            <button class="btn btn-sm btn-danger rounded-pill px-3" onclick="copyText('rek-bca')">
+                                <i class="far fa-copy me-1"></i> Salin Rekening
+                            </button>
+                        </div>
+
+                        <div class="border rounded-4 p-3 bg-white shadow-sm">
+                            <h5 class="fw-bold text-warning mb-1">BNI</h5>
+                            <p class="mb-0 fw-semibold">Azzarah Andina</p>
+                            <p class="mb-2 text-muted" id="rek-bni">12674554330</p>
+                            <button class="btn btn-sm btn-danger rounded-pill px-3" onclick="copyText('rek-bni')">
+                                <i class="far fa-copy me-1"></i> Salin Rekening
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="section-clean text-start border-top pt-4">
+                        <h3 class="font-serif text-danger display-5 text-center mb-3">Kirim Ucapan</h3>
+                        <form id="rsvp-form" onsubmit="submitWish(event)">
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Nama Tamu</label>
+                                <input type="text" id="wish-name" class="form-control form-control-sm" required placeholder="Nama Anda">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Konfirmasi Kehadiran</label>
+                                <select id="wish-attendance" class="form-select form-select-sm" required>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Ragu-ragu">Masih Ragu</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Tulis Ucapan & Doa</label>
+                                <textarea id="wish-message" class="form-control form-control-sm" rows="3" required placeholder="Tuliskan ucapan selamat..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-sm w-100 rounded-pill py-2">Kirim Ucapan</button>
+                        </form>
+
+                        <div id="wishes-list" class="mt-3"></div>
+                    </div>
+
+                    <footer class="my-4 text-center text-muted small">
+                        <p class="mb-0">Brielle & Kairo Wedding Invitation</p>
+                        <p class="font-serif text-danger fs-4 mb-0">Terima Kasih</p>
+                    </footer>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        if (guestName) {
+            document.getElementById('guest-name').innerText = guestName;
+        }
+
+        function openInvitation() {
+            document.getElementById('cover').classList.add('hidden');
+            playMusic();
+        }
+
+        window.addEventListener('wheel', function(e) {
+            const cover = document.getElementById('cover');
+            if (!cover.classList.contains('hidden')) {
+                openInvitation();
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', function(e) {
+            const cover = document.getElementById('cover');
+            if (!cover.classList.contains('hidden')) {
+                openInvitation();
+            }
+        }, { passive: true });
+
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-control');
+
+        function playMusic() {
+            audio.play().then(() => {
+                musicBtn.classList.remove('paused');
+            }).catch(err => console.log("Autoplay blocked by browser policy"));
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicBtn.classList.remove('paused');
+            } else {
+                audio.pause();
+                musicBtn.classList.add('paused');
+            }
+        }
+
+        const eventDate = new Date("Dec 31, 2027 09:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance > 0) {
+                document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor rekening berhasil disalin!');
+            });
+        }
+
+        function submitWish(event) {
+            event.preventDefault();
+            const name = document.getElementById('wish-name').value;
+            const attendance = document.getElementById('wish-attendance').value;
+            const message = document.getElementById('wish-message').value;
+
+            const wishesList = document.getElementById('wishes-list');
+            const newWish = document.createElement('div');
+            newWish.className = 'bg-white p-2 rounded mb-2 shadow-sm';
+            newWish.innerHTML = `
+                <strong class="small d-block text-danger">${name}</strong>
+                <span class="badge ${attendance === 'Hadir' ? 'bg-success' : 'bg-secondary'} mb-1">${attendance}</span>
+                <p class="small text-muted mb-0 text-justify">${message}</p>
+            `;
+
+            wishesList.prepend(newWish);
+            document.getElementById('rsvp-form').reset();
+        }
+    </script>
+</body>
+</html>
